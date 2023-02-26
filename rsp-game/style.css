@@ -1,13 +1,13 @@
 * {
-  margin: 0;
   box-sizing: border-box;
+  margin: 0 auto;
   text-align: center;
 }
 
 .info,
 .computer h3,
 .btn-group {
-  margin-bottom: 5rem;
+  margin-bottom: 1em;
 }
 
 button {
@@ -41,19 +41,24 @@ button {
 }
 
 /* 단일 */
-body {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+
+.title {
+  margin: 1em 0 1em;
 }
 
 .computer {
+  margin: 0 auto;
   position: relative;
   border-radius: 1rem 1rem 0 0;
+  width: 30rem;
   height: 20rem;
   background-color: #111;
+}
+
+#score-group {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
 }
 
 @keyframes shake {
@@ -72,16 +77,15 @@ body {
   animation: 0.5s linear infinite alternate shake;
 }
 
-#score-group {
-  position: absolute;
-  bottom: 1rem;
-  left: 1rem;
+.btn-group {
+  display: flex;
+  width: 30em;
 }
 
 .btn-group button {
-  border: none;
-  width: 9rem;
-  height: 10rem;
+  flex-grow: 1;
+  width: 10rem;
+
   border-radius: 0 0 1rem 1rem;
   transition: all 1s;
 }
@@ -96,9 +100,22 @@ body {
 }
 
 .result h1 {
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
 #result-info {
-  font-size: 2.5rem;
+  font-size: 2em;
+}
+
+@media (max-width: 450px) {
+  .computer,
+  .btn-group {
+    width: 100vw;
+  }
+
+  .btn-group button {
+    width: 5rem;
+
+    font-size: 5rem;
+  }
 }
