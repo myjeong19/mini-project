@@ -6,6 +6,8 @@ const userScissorsBtn = document.getElementById("scissors");
 const userRockBtn = document.getElementById("rock");
 const userPaperBtn = document.getElementById("paper");
 
+const WHITE = "#fff";
+
 // 컴퓨터가 선택한 값
 const getComputerChoice = () => {
   const randomNum = Math.floor(Math.random() * 3);
@@ -38,9 +40,11 @@ const computerIconChange = computerSelected => {
     PAPER: "fa-hand",
   };
 
+  resetComputerIcon(ICON);
+
   computerIcon.classList.remove("shake");
-  computerIcon.style.color = "#fff";
-  document.querySelector(".computer h3").style.color = "#fff";
+  computerIcon.style.color = WHITE;
+  document.querySelector(".computer h3").style.color = WHITE;
 
   switch (computerSelected) {
     case ROCK: {
@@ -84,37 +88,41 @@ const userSelectedBtn = userSelected => {
 };
 
 // 결과
-const resultInfoText = document.getElementById("reuslt-info");
-const userScoreText = document.getElementById("user-score");
-const computerScoreText = document.getElementById("computer-score");
+const userScoreEl = document.getElementById("user-score");
+const computerScoreEl = document.getElementById("computer-score");
+const resultInfoEl = document.getElementById("result-info");
 
 const resultInfo = {
   draw: () => {
-    resultInfoText.textContent = `비겼습니다, 게임을 다시 진행해주세요.`;
-    resultInfoText.style.color = "#111";
+    resultInfoEl.textContent = `비겼습니다, 게임을 다시 진행해주세요.`;
+    resultInfoEl.style.color = "#111";
   },
   win: userScore => {
-    resultInfoText.textContent = "당신이 승리하였습니다!";
-    resultInfoText.style.color = "#1fdf64";
-    userScoreText.querySelector("span").textContent = userScore;
+    resultInfoEl.textContent = "당신이 승리하였습니다!";
+    resultInfoEl.style.color = "#1fdf64";
+    userScoreEl.querySelector("span").textContent = userScore;
   },
   lose: computerScore => {
-    resultInfoText.textContent = "당신이 패배하였습니다.";
-    resultInfoText.style.color = "#df3c1f";
-    computerScoreText.querySelector("span").textContent = computerScore;
+    resultInfoEl.textContent = "당신이 패배하였습니다.";
+    resultInfoEl.style.color = "#df3c1f";
+    computerScoreEl.querySelector("span").textContent = computerScore;
   },
 };
 
 const winnerScoreHighlights = () => {
+  const GRAY = "#666";
+  const computerScoreColor = color => (computerScoreEl.style.color = color);
+  const userScoreColor = color => (userScoreEl.style.color = color);
+
   if (userScore > computerScore) {
-    userScoreText.style.color = "#fff";
-    computerScoreText.style.color = "#666";
+    userScoreColor(WHITE);
+    computerScoreColor(GRAY);
   } else if (userScore < computerScore) {
-    computerScoreText.style.color = "#fff";
-    userScoreText.style.color = "#666";
+    computerScoreColor(WHITE);
+    userScoreColor(GRAY);
   } else {
-    computerScoreText.style.color = "#666";
-    userScoreText.style.color = "#666";
+    computerScoreColor(GRAY);
+    userScoreColor(GRAY);
   }
 };
 
@@ -142,7 +150,7 @@ const gameHandler = userSelected => {
     resultInfo.lose(computerScore);
   }
 
-  winnerScoreHighlights(userScore, computerScore);
+  winnerScoreHighlights();
 };
 
 userScissorsBtn.addEventListener("click", gameHandler.bind(this, SCISSORS));
