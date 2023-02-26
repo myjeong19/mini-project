@@ -42,8 +42,16 @@ button {
 
 /* 단일 */
 
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
 .title {
-  margin: 1em 0 1em;
+  margin-bottom: 2em;
 }
 
 .computer {
@@ -53,6 +61,10 @@ button {
   width: 30rem;
   height: 20rem;
   background-color: #111;
+}
+
+.computer h3 {
+  margin-bottom: 5rem;
 }
 
 #score-group {
@@ -85,7 +97,6 @@ button {
 .btn-group button {
   flex-grow: 1;
   width: 10rem;
-
   border-radius: 0 0 1rem 1rem;
   transition: all 1s;
 }
@@ -115,7 +126,6 @@ button {
 
   .btn-group button {
     width: 5rem;
-
     font-size: 5rem;
   }
 }
