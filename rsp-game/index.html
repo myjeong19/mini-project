@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css" />
+    <script
+      src="https://kit.fontawesome.com/8bee8c83d0.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="./app.js" defer></script>
+  </head>
+  <body>
+    <div class="info">
+      <h1 class="title">가위 바위 보 게임</h1>
+    </div>
+
+    <main>
+      <div class="computer">
+        <h3>컴퓨터</h3>
+        <i class="fa-regular fa-hand-back-fist shake"></i>
+        <div id="score-group">
+          <p id="user-score">사용자 승: <span>0</span></p>
+          <p id="computer-score">컴퓨터 승: <span>0</span></p>
+        </div>
+      </div>
+
+      <div class="btn-group">
+        <button id="rock" class="fa-regular fa-hand-back-fist"></button>
+        <button id="scissors" class="fa-regular fa-hand-scissors"></button>
+        <button id="paper" class="fa-regular fa-hand"></button>
+      </div>
+    </main>
+
+    <section class="reuslt">
+      <h1>게임 결과</h1>
+      <strong id="reuslt-info">???</strong>
+    </section>
+  </body>
+</html>

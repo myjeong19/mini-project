@@ -1,0 +1,95 @@
+* {
+  margin: 0;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.info,
+.computer h3,
+.btn-group {
+  margin-bottom: 5rem;
+}
+
+.computer,
+.btn-group button {
+  box-shadow: 0 5px 4px rgba(0, 0, 0, 0.5);
+}
+
+.computer h3,
+.computer i,
+#user-score,
+#computer-score,
+#reuslt-info {
+  color: #666;
+  transition: all 0.5s;
+}
+
+.computer i,
+.btn-group button {
+  font-size: 8rem;
+}
+
+.btn-group button:focus,
+.selected {
+  color: #1fdf64;
+  background-color: #111;
+}
+
+/* 단일 */
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+button {
+  border: none;
+  cursor: pointer;
+}
+
+.computer {
+  position: relative;
+  border-radius: 1rem 1rem 0 0;
+  height: 20rem;
+  background-color: #111;
+}
+
+@keyframes shake {
+  from {
+    margin-top: 1rem;
+    width: 10rem;
+  }
+
+  to {
+    margin-top: 0rem;
+    width: 10rem;
+  }
+}
+
+.shake {
+  animation: 0.5s linear infinite alternate shake;
+}
+
+#score-group {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+}
+
+.btn-group button {
+  border: none;
+  width: 9rem;
+  border-radius: 0 0 1rem 1rem;
+  transition: all 1s;
+}
+
+.btn-group button:hover {
+  color: #1fdf658c;
+  background-color: rgba(0, 0, 0, 0.678);
+}
+
+#reuslt-info {
+  font-size: 2.5rem;
+}
