@@ -1,4 +1,4 @@
-const ROCK = "fa-regular fa-hand-back-fist";
+const ROCK = "fa-hand-back-fist";
 const SCISSORS = "fa-hand-scissors";
 const PAPER = "fa-hand";
 
@@ -26,13 +26,12 @@ const gameOn = () => {
 };
 
 // 컴퓨터가 선택한 아이콘 변경
-const resetComputerIcon = () => computerIconEl.classList.remove(ROCK, SCISSORS, PAPER);
-const selectIcon = computerSelected =>
-  computerIconEl.classList.add(`${computerSelected}`);
+const computerSelectIcon = computerSelected =>
+  computerIconEl.classList.add(computerSelected);
 
 const computerIconChange = computerSelected => {
-  resetComputerIcon();
-  selectIcon(computerSelected);
+  computerIconEl.classList.remove(ROCK, SCISSORS, PAPER);
+  computerSelectIcon(computerSelected);
 };
 
 // 유저가 선택한 버튼 초기화
