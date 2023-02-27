@@ -1,65 +1,38 @@
-const SCISSORS = "SCISSORS";
-const ROCK = "ROCK";
-const PAEPER = "PAEPER";
+const ROCK = "fa-regular fa-hand-back-fist";
+const SCISSORS = "fa-hand-scissors";
+const PAPER = "fa-hand";
 
-const userScissorsBtn = document.getElementById("scissors");
 const userRockBtn = document.getElementById("rock");
+const userScissorsBtn = document.getElementById("scissors");
 const userPaperBtn = document.getElementById("paper");
 
 const WHITE = "#fff";
 
 // 컴퓨터가 선택한 값
+const rsp = [ROCK, SCISSORS, PAPER];
 const getComputerChoice = () => {
   const randomNum = Math.floor(Math.random() * 3);
-
-  switch (randomNum) {
-    case 0:
-      return SCISSORS;
-    case 1:
-      return ROCK;
-    default:
-      return PAEPER;
-  }
+  return rsp[randomNum];
 };
 
 // 컴퓨터가 선택한 아이콘 초기화
-const computerIcon = document.querySelector(".computer i");
+const computerIconEl = document.querySelector(".computer i");
 
-const resetComputerIcon = ICON => {
-  computerIcon.classList.remove(ICON.ROCK);
-  computerIcon.classList.remove(ICON.SCISSORS);
-  computerIcon.classList.remove(ICON.PAEPER);
+// 게임 시작시 화면 변화
+const gameOn = () => {
+  computerIconEl.style.color = WHITE;
+  computerIconEl.previousElementSibling.style.color = WHITE;
+  computerIconEl.classList.remove("shake");
 };
 
 // 컴퓨터가 선택한 아이콘 변경
+const resetComputerIcon = () => computerIconEl.classList.remove(ROCK, SCISSORS, PAPER);
+const selectIcon = computerSelected =>
+  computerIconEl.classList.add(`${computerSelected}`);
 
 const computerIconChange = computerSelected => {
-  const ICON = {
-    SCISSORS: "fa-hand-scissors",
-    ROCK: "fa-hand-back-fist",
-    PAPER: "fa-hand",
-  };
-
-  resetComputerIcon(ICON);
-
-  computerIcon.classList.remove("shake");
-  computerIcon.style.color = WHITE;
-  document.querySelector(".computer h3").style.color = WHITE;
-
-  switch (computerSelected) {
-    case ROCK: {
-      computerIcon.classList.add(ICON.ROCK);
-      break;
-    }
-
-    case SCISSORS: {
-      computerIcon.classList.add(ICON.SCISSORS);
-      break;
-    }
-
-    default:
-      computerIcon.classList.add(ICON.PAPER);
-  }
+  resetComputerIcon();
+  selectIcon(computerSelected);
 };
 
 // 유저가 선택한 버튼 초기화
@@ -71,88 +44,73 @@ const resetUserSelectedBtn = () => {
 
 // 유저가 선택한 버튼
 const userSelectedBtn = userSelected => {
-  resetUserSelectedBtn();
+  resetUserSelectedBtn(userSelected);
 
   switch (userSelected) {
     case ROCK:
-      userRockBtn.classList.add("selected");
-      break;
+      return userRockBtn.classList.add("selected");
 
     case SCISSORS:
-      userScissorsBtn.classList.add("selected");
-      break;
+      return userScissorsBtn.classList.add("selected");
 
     default:
       userPaperBtn.classList.add("selected");
   }
 };
 
-// 결과
 const userScoreEl = document.getElementById("user-score");
-const computerScoreEl = document.getElementById("computer-score");
-const resultInfoEl = document.getElementById("result-info");
+const computerScoreEl = userScoreEl.nextElementSibling;
 
-const resultInfo = {
-  draw: () => {
-    resultInfoEl.textContent = `비겼습니다, 게임을 다시 진행해주세요.`;
-    resultInfoEl.style.color = "#111";
-  },
-  win: userScore => {
-    resultInfoEl.textContent = "당신이 승리하였습니다!";
-    resultInfoEl.style.color = "#1fdf64";
-    userScoreEl.querySelector("span").textContent = userScore;
-  },
-  lose: computerScore => {
-    resultInfoEl.textContent = "당신이 패배하였습니다.";
-    resultInfoEl.style.color = "#df3c1f";
-    computerScoreEl.querySelector("span").textContent = computerScore;
-  },
+// 승자 Score 강조
+const highlightColor = (userColor, computerColor) => {
+  userScoreEl.style.color = userColor;
+  computerScoreEl.style.color = computerColor;
 };
 
 const winnerScoreHighlights = () => {
+  userScoreEl.firstElementChild.textContent = userScore;
+  computerScoreEl.firstElementChild.textContent = computerScore;
   const GRAY = "#666";
-  const computerScoreColor = color => (computerScoreEl.style.color = color);
-  const userScoreColor = color => (userScoreEl.style.color = color);
 
-  if (userScore > computerScore) {
-    userScoreColor(WHITE);
-    computerScoreColor(GRAY);
-  } else if (userScore < computerScore) {
-    computerScoreColor(WHITE);
-    userScoreColor(GRAY);
-  } else {
-    computerScoreColor(GRAY);
-    userScoreColor(GRAY);
-  }
+  if (userScore === computerScore) return highlightColor(GRAY, GRAY);
+  else if (userScore > computerScore) return highlightColor(WHITE, GRAY);
+  else return highlightColor(GRAY, WHITE);
+};
+
+// 결과 메시지
+const resultMsg = document.getElementById("result-msg");
+const resultMsgChange = (text, color) => {
+  resultMsg.textContent = text;
+  resultMsg.style.color = color;
 };
 
 // 가위, 바위, 보 게임 핸들러
-
 let userScore = 0;
 let computerScore = 0;
 
 const gameHandler = userSelected => {
-  userSelectedBtn(userSelected);
+  gameOn();
   const computerSelected = getComputerChoice();
   computerIconChange(computerSelected);
 
-  if (computerSelected === userSelected) {
-    return resultInfo.draw();
-  } else if (
+  if (computerSelected === userSelected)
+    resultMsgChange("비겼습니다, 게임을 다시 진행해주세요.", "#111");
+  else if (
     (userSelected === ROCK && computerSelected === SCISSORS) ||
-    (userSelected === SCISSORS && computerSelected === PAEPER) ||
-    (userSelected === PAEPER && computerSelected === ROCK)
+    (userSelected === SCISSORS && computerSelected === PAPER) ||
+    (userSelected === PAPER && computerSelected === ROCK)
   ) {
-    userScore = userScore + 1;
-    resultInfo.win(userScore);
+    userScore += 1;
+    resultMsgChange("당신이 승리하였습니다!", "#1fdf64");
   } else {
-    computerScore = computerScore + 1;
-    resultInfo.lose(computerScore);
+    computerScore += 1;
+    resultMsgChange("당신이 패배하였습니다.", "#df3c1f");
   }
 
+  userSelectedBtn(userSelected);
   winnerScoreHighlights();
 };
 
 userScissorsBtn.addEventListener("click", gameHandler.bind(this, SCISSORS));
 userRockBtn.addEventListener("click", gameHandler.bind(this, ROCK));
-userPaperBtn.addEventListener("click", gameHandler.bind(this, PAEPER));
+userPaperBtn.addEventListener("click", gameHandler.bind(this, PAPER));
