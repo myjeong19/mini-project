@@ -44,7 +44,7 @@ const resetUserSelectedBtn = () => {
 
 // 유저가 선택한 버튼
 const userSelectedBtn = userSelected => {
-  resetUserSelectedBtn(userSelected);
+  resetUserSelectedBtn();
 
   switch (userSelected) {
     case ROCK:
