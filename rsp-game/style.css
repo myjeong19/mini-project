@@ -35,7 +35,7 @@ button {
 }
 
 .btn-group button:focus,
-.selected {
+.choice {
   color: #1fdf64;
   background-color: #111;
 }
