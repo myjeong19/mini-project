@@ -4,22 +4,22 @@ const PAPER = "fa-hand";
 
 const WHITE = "#fff";
 
-const userRockBtn = document.getElementById("rock");
-const userScissorsBtn = document.getElementById("scissors");
-const userPaperBtn = document.getElementById("paper");
+const playerRockBtn = document.getElementById("rock-btn");
+const playerScissorsBtn = document.getElementById("scissors-btn");
+const playerPaperBtn = document.getElementById("paper-btn");
 
 const computerIconEl = document.querySelector(".computer i");
-const userScoreEl = document.getElementById("user-score");
-const computerScoreEl = userScoreEl.nextElementSibling;
+const playerScoreEl = document.getElementById("player-score");
+const computerScoreEl = playerScoreEl.nextElementSibling;
 
-let userScore = 0;
+let playerScore = 0;
 let computerScore = 0;
 
 // 컴퓨터가 선택한 값
 const getComputerChoice = () => {
-  const computerRsp = [ROCK, SCISSORS, PAPER];
+  const choices = [ROCK, SCISSORS, PAPER];
   const randomNum = Math.floor(Math.random() * 3);
-  return computerRsp[randomNum];
+  return choices[randomNum];
 };
 
 // 게임 시작시 컴퓨터 아이콘, 텍스트 색 변경
@@ -38,38 +38,38 @@ const getComputerIcon = computerChoice => {
 };
 
 // 유저가 선택한 버튼 초기화
-const resetUserChoiceBtn = () => {
-  userRockBtn.classList.remove("choice");
-  userScissorsBtn.classList.remove("choice");
-  userPaperBtn.classList.remove("choice");
+const resetplayerChoiceBtn = () => {
+  playerRockBtn.classList.remove("choice");
+  playerScissorsBtn.classList.remove("choice");
+  playerPaperBtn.classList.remove("choice");
 };
 
 // 유저가 선택한 버튼
-const getUserChoiceBtn = userChoice => {
-  resetUserChoiceBtn();
+const getplayerChoiceBtn = playerChoice => {
+  resetplayerChoiceBtn();
 
-  const userBtns = {
-    "fa-hand-back-fist": () => userRockBtn.classList.add("choice"),
-    "fa-hand-scissors": () => userScissorsBtn.classList.add("choice"),
-    "fa-hand": () => userPaperBtn.classList.add("choice"),
+  const playerBtns = {
+    "fa-hand-back-fist": () => playerRockBtn.classList.add("choice"),
+    "fa-hand-scissors": () => playerScissorsBtn.classList.add("choice"),
+    "fa-hand": () => playerPaperBtn.classList.add("choice"),
   };
 
-  userBtns[userChoice];
+  playerBtns[playerChoice];
 };
 
 // 스코어 강조
-const winnerHighlightColor = (userColor, computerColor) => {
-  userScoreEl.style.color = userColor;
+const winnerHighlightColor = (playerColor, computerColor) => {
+  playerScoreEl.style.color = playerColor;
   computerScoreEl.style.color = computerColor;
 };
 
 const winnerHighlight = () => {
-  userScoreEl.firstElementChild.textContent = userScore;
+  playerScoreEl.firstElementChild.textContent = playerScore;
   computerScoreEl.firstElementChild.textContent = computerScore;
   const GRAY = "#666";
 
-  if (userScore === computerScore) return winnerHighlightColor(GRAY, GRAY);
-  else if (userScore > computerScore) return winnerHighlightColor(WHITE, GRAY);
+  if (playerScore === computerScore) return winnerHighlightColor(GRAY, GRAY);
+  else if (playerScore > computerScore) return winnerHighlightColor(WHITE, GRAY);
   else return winnerHighlightColor(GRAY, WHITE);
 };
 
@@ -81,15 +81,15 @@ const resultMsgChange = (text, color) => {
 };
 
 // 승자
-const getWinner = (userChoice, computerChoice) => {
-  if (userChoice === computerChoice)
+const getWinner = (playerChoice, computerChoice) => {
+  if (playerChoice === computerChoice)
     resultMsgChange("비겼습니다, 게임을 다시 진행해주세요.", "#111");
   else if (
-    (userChoice === ROCK && computerChoice === SCISSORS) ||
-    (userChoice === SCISSORS && computerChoice === PAPER) ||
-    (userChoice === PAPER && computerChoice === ROCK)
+    (playerChoice === ROCK && computerChoice === SCISSORS) ||
+    (playerChoice === SCISSORS && computerChoice === PAPER) ||
+    (playerChoice === PAPER && computerChoice === ROCK)
   ) {
-    userScore += 1;
+    playerScore += 1;
     resultMsgChange("당신이 승리하였습니다!", "#1fdf64");
   } else {
     computerScore += 1;
@@ -98,17 +98,17 @@ const getWinner = (userChoice, computerChoice) => {
 };
 
 // 가위, 바위, 보 게임 핸들러
-const gameHandler = userChoice => {
-  getUserChoiceBtn(userChoice);
+const gameHandler = playerChoice => {
+  getplayerChoiceBtn(playerChoice);
   gameStartEvent();
 
   const computerChoice = getComputerChoice();
   getComputerIcon(computerChoice);
 
-  getWinner(userChoice, computerChoice);
+  getWinner(playerChoice, computerChoice);
   winnerHighlight();
 };
 
-userRockBtn.addEventListener("click", gameHandler.bind(this, ROCK));
-userScissorsBtn.addEventListener("click", gameHandler.bind(this, SCISSORS));
-userPaperBtn.addEventListener("click", gameHandler.bind(this, PAPER));
+playerRockBtn.addEventListener("click", gameHandler.bind(this, ROCK));
+playerScissorsBtn.addEventListener("click", gameHandler.bind(this, SCISSORS));
+playerPaperBtn.addEventListener("click", gameHandler.bind(this, PAPER));
