@@ -38,15 +38,15 @@ const getComputerIcon = computerChoice => {
 };
 
 // 유저가 선택한 버튼 초기화
-const resetplayerChoiceBtn = () => {
+const resetPlayerChoiceBtn = () => {
   playerRockBtn.classList.remove("choice");
   playerScissorsBtn.classList.remove("choice");
   playerPaperBtn.classList.remove("choice");
 };
 
 // 유저가 선택한 버튼
-const getplayerChoiceBtn = playerChoice => {
-  resetplayerChoiceBtn();
+const getPlayerChoiceBtn = playerChoice => {
+  resetPlayerChoiceBtn();
 
   const playerBtns = {
     "fa-hand-back-fist": () => playerRockBtn.classList.add("choice"),
@@ -99,7 +99,7 @@ const getWinner = (playerChoice, computerChoice) => {
 
 // 가위, 바위, 보 게임 핸들러
 const gameHandler = playerChoice => {
-  getplayerChoiceBtn(playerChoice);
+  getPlayerChoiceBtn(playerChoice);
   gameStartEvent();
 
   const computerChoice = getComputerChoice();
